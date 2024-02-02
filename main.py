@@ -56,6 +56,12 @@ def main():
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_PAGEUP:
+                    if zoom < 21:
+                        zoom += 1
+                elif event.key == pygame.K_PAGEDOWN:
+                    if zoom > 0:
+                        zoom -= 1
                 if event.key == pygame.K_LEFT:
                     left = True
                 elif event.key == pygame.K_RIGHT:
