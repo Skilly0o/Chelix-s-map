@@ -42,16 +42,49 @@ def load_map(coords, zoom):
 
 
 def main():
-    coords = '37.617635,55.755814'  # Координаты Московского Кремля
+    x = 37.617635
+    y = 55.755814
     zoom = 14  # Изначальное приближение карты
-    map_data = load_map(coords, zoom)
-    map_image = pygame.image.load_extended(BytesIO(map_data))
 
+    left = False
+    right = False
+    up = False
+    down = False
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    left = True
+                elif event.key == pygame.K_RIGHT:
+                    right = True
+                elif event.key == pygame.K_UP:
+                    up = True
+                elif event.key == pygame.K_DOWN:
+                    down = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT:
+                    left = False
+                elif event.key == pygame.K_RIGHT:
+                    right = False
+                elif event.key == pygame.K_UP:
+                    up = False
+                elif event.key == pygame.K_DOWN:
+                    down = False
+        if left and x > -180:
+            x -= 0.002
+        if right and x < 180:
+            x += 0.002
+        if up and y < 85:
+            y += 0.002
+        if down and y > -85:
+            y -= 0.002
+
+        coords = f'{str(x)},{str(y)}'
+        map_data = load_map(coords, zoom)
+        map_image = pygame.image.load_extended(BytesIO(map_data))
 
         screen.blit(map_image, (0, 0))
         pygame.display.flip()
