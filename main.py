@@ -52,7 +52,14 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    if zoom < 21:
+                        zoom += 1
+                elif event.key == pygame.K_DOWN:
+                    if zoom > 0:
+                        zoom -= 1
+                map_image = pygame.image.load_extended(BytesIO(load_map(coords, zoom)))
         screen.blit(map_image, (0, 0))
         pygame.display.flip()
 
