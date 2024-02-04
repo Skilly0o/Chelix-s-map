@@ -126,7 +126,7 @@ class Yandex_API:
         response = requests.get(request, params=params)
         if not response:
             print("Ошибка выполнения запроса:")
-            print(map_request)
+            print(request)
             print("Http статус:", response.status_code, "(", response.reason, ")")
             sys.exit(1)
         # шаблон для переменной coords
